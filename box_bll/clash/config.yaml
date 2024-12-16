@@ -1,14 +1,30 @@
+# 代理提供者在下
+#############################################
+proxy-providers:
+  1.主要地址:
+    <<: *p
+    url: "引入您的Clash订阅链接地址"
+    path: ./proxy_providers/subscribe1.yaml
+    
+  2.备用地址:
+    <<: *p
+    url: "https://qslink.yeahfast.com/verival/qsy/lod?token=iNRzCUaMQLrjzgG0"
+    path: ./proxy_providers/subscribe2.yaml
+#############################################
+
+
 mixed-port: 7890
 redir-port: 7891
 tproxy-port: 1536
 mode: Rule
 allow-lan: true
-geodata-mode: true
+geodata-mode: false
 geo-auto-update: true
 geo-update-interval: 24
 geox-url:
-  geoip: "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geoip.dat"
-  geosite: "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geosite.dat"
+  geoip: "https://cdn.jsdelivr.net/gh/DustinWin/ruleset_geodata@clash/geoip-all.metadb"
+  geosite: "https://cdn.jsdelivr.net/gh/DustinWin/ruleset_geodata@clash/geosite-all.dat"
+  mmdb: "https://cdn.jsdelivr.net/gh/DustinWin/ruleset_geodata@clash/Country-all.mmdb"
 unified-delay: true
 tcp-concurrent: true
 enable-process: true
@@ -16,8 +32,8 @@ log-level: silent
 find-process-mode: always
 global-client-fingerprint: chrome
 external-controller: 0.0.0.0:9090
-#面板默认Meta 可选Yacd 清除浏览器缓存即可重新加载
-external-ui: /data/adb/box_bll/panel/Meta/ #/Meta #/Yacd
+#面板默认Yacd 可选Meta 清除浏览器缓存即可重新加载
+external-ui: /data/adb/box_bll/panel/Yacd/ #/Meta #/Yacd
 secret: ""
 
 #####################
@@ -94,42 +110,25 @@ dns:
     - 1.主要地址
     - 2.备用地址
 
-proxy-providers:
-  1.主要地址:
-    <<: *p
-    url: "引入您的Clash订阅链接地址"
-    path: ./proxy_providers/subscribe1.yaml
-    
-  2.备用地址:
-    <<: *p
-    url: "https://qslink.yeahfast.com/verival/qsy/lod?token=iNRzCUaMQLrjzgG0"
-    path: ./proxy_providers/subscribe2.yaml
     
 proxies:
   - {name: 🌎 全球直连, type: direct, udp: true}
   - {name: DNS_Hijack, type: dns}
 proxy-groups:
-  - {name: 🎯 总模式, type: select, proxies: [🚀 节点选择,♻️ 延迟最低,♻️ 故障转移,♻️ 负载均衡,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3,🌎 全球直连]}
   - {name: 🚀 节点选择, type: select, proxies: [♻️ 延迟最低,🌎 全球直连], <<: *u}
   - {name: ♻️ 延迟最低, <<: *u, type: url-test}
-  - {name: ♻️ 故障转移, <<: *u, type: fallback}
-  - {name: ♻️ 负载均衡, <<: *u, type: load-balance, strategy: round-robin}
-  - {name: ♻️ 手动切换1, type: select, proxies: [🚀 节点选择,🌎 全球直连], <<: *u}
-  - {name: ♻️ 手动切换2, type: select, proxies: [🚀 节点选择,🌎 全球直连], <<: *u}
-  - {name: ♻️ 手动切换3, type: select, proxies: [🚀 节点选择,🌎 全球直连], <<: *u}
-  - {name: 🤖 OpenAI, type: select, proxies: [🎯 总模式,♻️ 延迟最低,♻️ 故障转移,♻️ 负载均衡,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3,🌎 全球直连]}
-  - {name: 📱 脸书社交, type: select, proxies: [🎯 总模式,♻️ 延迟最低,♻️ 故障转移,♻️ 负载均衡,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3,🌎 全球直连]}
-  - {name: 📲 电报信息, type: select, proxies: [🎯 总模式,♻️ 延迟最低,♻️ 故障转移,♻️ 负载均衡,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3,🌎 全球直连]}
-  - {name: 🎬 油管媒体, type: select, proxies: [🎯 总模式,♻️ 延迟最低,♻️ 故障转移,♻️ 负载均衡,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3,🌎 全球直连]}
-  - {name: 📹 奈飞媒体, type: select, proxies: [🎯 总模式,♻️ 延迟最低,♻️ 故障转移,♻️ 负载均衡,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3,🌎 全球直连]}
-  - {name: 📢 谷歌服务, type: select, proxies: [🎯 总模式,♻️ 延迟最低,♻️ 故障转移,♻️ 负载均衡,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3,🌎 全球直连]}
-  - {name: Ⓜ️ 微软服务, type: select, proxies: [🎯 总模式,♻️ 延迟最低,♻️ 故障转移,♻️ 负载均衡,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3,🌎 全球直连]}
-  - {name: 🍎 苹果服务, type: select, proxies: [🎯 总模式,♻️ 延迟最低,♻️ 故障转移,♻️ 负载均衡,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3,🌎 全球直连]}
-  - {name: 🎮 Discord, type: select, proxies: [🎯 总模式,♻️ 延迟最低,♻️ 故障转移,♻️ 负载均衡,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3,🌎 全球直连]}
-  - {name: 📸 TikTok, type: select, proxies: [🎯 总模式,♻️ 延迟最低,♻️ 故障转移,♻️ 负载均衡,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3,🌎 全球直连]}
-  - {name: 🎹 网易音乐「进程匹配」, type: select, proxies: [🌎 全球直连,🎯 总模式,♻️ 延迟最低,♻️ 故障转移,♻️ 负载均衡,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3]}
+  - {name: 📱 脸书社交, type: select, proxies: [🚀 节点选择,♻️ 延迟最低,🌎 全球直连]}
+  - {name: 📲 电报信息, type: select, proxies: [🚀 节点选择,♻️ 延迟最低,🌎 全球直连]}
+  - {name: 🎬 油管媒体, type: select, proxies: [🚀 节点选择,♻️ 延迟最低,🌎 全球直连]}
+  - {name: 📹 奈飞媒体, type: select, proxies: [🚀 节点选择,♻️ 延迟最低,🌎 全球直连]}
+  - {name: 📢 谷歌服务, type: select, proxies: [🚀 节点选择,♻️ 延迟最低,🌎 全球直连]}
+  - {name: Ⓜ️ 微软服务, type: select, proxies: [🚀 节点选择,♻️ 延迟最低,🌎 全球直连]}
+  - {name: 🍎 苹果服务, type: select, proxies: [🚀 节点选择,♻️ 延迟最低,🌎 全球直连]}
+  - {name: 🎮 Discord, type: select, proxies: [🚀 节点选择,♻️ 延迟最低,🌎 全球直连]}
+  - {name: 📸 TikTok, type: select, proxies: [🚀 节点选择,♻️ 延迟最低,🌎 全球直连]}
+  - {name: 🎹 网易音乐「进程匹配」, type: select, proxies: [🌎 全球直连,🚀 节点选择,♻️ 延迟最低]}
   - {name: 🛑 广告拦截, type: select, proxies: [REJECT,🌎 全球直连]}
-  - {name: 🐋 漏网之鱼, type: select, proxies: [🎯 总模式,🌎 全球直连]}
+  - {name: 🐋 漏网之鱼, type: select, proxies: [🚀 节点选择,🌎 全球直连]}
 rule-providers:
   TikTok:
     type: http
@@ -180,13 +179,6 @@ rule-providers:
     path: ./rule/Apple.yaml
     url: "https://raw.githubusercontent.com/MoGuangYu/rules/main/Home/Apple.yaml"
     interval: 86400
-  OpenAI:
-    type: http
-    behavior: classical
-    format: yaml
-    path: ./rule/OpenAI.yaml
-    url: "https://raw.githubusercontent.com/MoGuangYu/rules/main/Home/OpenAI.yaml"
-    interval: 86400
   Netflix:
     type: http
     behavior: classical
@@ -211,7 +203,6 @@ rules:
   - RULE-SET,YouTube,🎬 油管媒体
   - RULE-SET,Netflix,📹 奈飞媒体
   - RULE-SET,Facebook,📱 脸书社交
-  - RULE-SET,OpenAI,🤖 OpenAI
   - RULE-SET,Google,📢 谷歌服务
   - RULE-SET,Apple,🍎 苹果服务
   - RULE-SET,Microsoft,Ⓜ️ 微软服务

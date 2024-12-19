@@ -1,6 +1,6 @@
 # 代理提供者在下#############################################
 proxy-providers:
-  "主要订阅":      # 一号订阅链接
+  1.主要地址:      # 一号订阅链接
     type: http         
     path: ./provide/sub1.yaml # 默认只允许存储在 mihomo 的 Home Dir，如果想存储到任意位置，添加环境变量 SKIP_SAFE_PATH_CHECK=1
     url: "订阅链接"               # 此处填写订阅url
@@ -9,7 +9,7 @@ proxy-providers:
       enable: true
       url: http://www.gstatic.com/generate_204
       interval: 3600
-  "备用订阅":
+  2.备用地址:
     type: http
     url: "订阅链接"
     interval: 3600
@@ -293,25 +293,28 @@ dns:
       - '+.facebook.com'
       - '+.youtube.com'
       - '+.googleapis.+'    
-
+  u: &u
+    use:
+    - 1.主要地址
+    - 2.备用地址
 
 # 第二部分 代理组配置  
 
 proxies: 
   - {name: 🌎 全球直连, type: direct, udp: true}
 proxy-groups:
-  - {name: 🚀 节点选择, type: select, proxies: [♻️ 延迟最低,🌎 全球直连], use: [主要订阅,备用订阅]}
-  - {name: ♻️ 延迟最低, type: url-test, use: [主要订阅,备用订阅]}
+  - {name: 🚀 节点选择, type: select, proxies: [♻️ 延迟最低,🌎 全球直连], <<: *u}
+  - {name: ♻️ 延迟最低, type: url-test, <<: *u}
 
-  - {name: 📢 GFW, type: select, proxies: [🚀 节点选择,♻️ 延迟最低,🌎 全球直连], use: [主要订阅,备用订阅]}
+  - {name: 📢 GFW, type: select, proxies: [🚀 节点选择,♻️ 延迟最低,🌎 全球直连], <<: *u}
 
-  - {name: 🎮 国内游戏, type: select, proxies: [🌎 全球直连,🚀 节点选择,♻️ 延迟最低], use: [主要订阅,备用订阅]}
-  - {name: Ⓜ️ 微软服务, type: select, proxies: [🌎 全球直连,🚀 节点选择,♻️ 延迟最低], use: [主要订阅,备用订阅]}
-  - {name: 🍎 苹果服务, type: select, proxies: [🌎 全球直连,🚀 节点选择,♻️ 延迟最低], use: [主要订阅,备用订阅]}
-  - {name: 🌎 国内网站, type: select, proxies: [🌎 全球直连,🚀 节点选择,♻️ 延迟最低], use: [主要订阅,备用订阅]}
-  - {name: 🎹 网易音乐「进程匹配」, type: select, proxies: [🌎 全球直连,🚀 节点选择,♻️ 延迟最低], use: [主要订阅,备用订阅]}
+  - {name: 🎮 国内游戏, type: select, proxies: [🌎 全球直连,🚀 节点选择,♻️ 延迟最低], <<: *u}
+  - {name: Ⓜ️ 微软服务, type: select, proxies: [🌎 全球直连,🚀 节点选择,♻️ 延迟最低], <<: *u}
+  - {name: 🍎 苹果服务, type: select, proxies: [🌎 全球直连,🚀 节点选择,♻️ 延迟最低], <<: *u}
+  - {name: 🌎 国内网站, type: select, proxies: [🌎 全球直连,🚀 节点选择,♻️ 延迟最低], <<: *u}
+  - {name: 🎹 网易音乐「进程匹配」, type: select, proxies: [🌎 全球直连,🚀 节点选择,♻️ 延迟最低], <<: *u}
   - {name: 🛑 广告拦截, type: select, proxies: [REJECT,🌎 全球直连]}
-  - {name: 🐋 漏网之鱼, type: select, proxies: [🚀 节点选择,♻️ 延迟最低,🌎 全球直连], use: [主要订阅,备用订阅]}
+  - {name: 🐋 漏网之鱼, type: select, proxies: [🚀 节点选择,♻️ 延迟最低,🌎 全球直连], <<: *u}
   
       
 

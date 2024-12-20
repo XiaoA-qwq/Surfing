@@ -154,17 +154,16 @@ proxies:
 proxy-groups:
   - {name: 🚀 节点选择, type: select, proxies: [♻️ 延迟最低,🌎 全球直连], <<: *u}
   - {name: ♻️ 延迟最低, <<: *u, type: url-test}
-  - {name: ♻️ 负载均衡, <<: *u, type: load-balance, strategy: round-robin}
 
   ######################  建议代理  ######################
-  - {name: 📢 GFW, type: select, proxies: [🚀 节点选择,♻️ 延迟最低,♻️ 负载均衡,🌎 全球直连]}
+  - {name: 📢 GFW, type: select, proxies: [🚀 节点选择,♻️ 延迟最低,🌎 全球直连], <<: *u}
 
 
-  - {name: Ⓜ️ 微软服务, type: select, proxies: [🚀 节点选择,♻️ 延迟最低,♻️ 负载均衡,🌎 全球直连]}
-  - {name: 🍎 苹果服务, type: select, proxies: [🚀 节点选择,♻️ 延迟最低,♻️ 负载均衡,🌎 全球直连]}
-  - {name: 🎹 网易音乐「进程匹配」, type: select, proxies: [🌎 全球直连,🚀 节点选择,♻️ 延迟最低,♻️ 负载均衡]}
+  - {name: Ⓜ️ 微软服务, type: select, proxies: [🚀 节点选择,♻️ 延迟最低,🌎 全球直连], <<: *u}
+  - {name: 🍎 苹果服务, type: select, proxies: [🚀 节点选择,♻️ 延迟最低,🌎 全球直连], <<: *u}
+  - {name: 🎹 网易音乐「进程匹配」, type: select, proxies: [🌎 全球直连,🚀 节点选择,♻️ 延迟最低]}
   - {name: 🛑 广告拦截, type: select, proxies: [REJECT,🌎 全球直连]}
-  - {name: 🐋 漏网之鱼, type: select, proxies: [🚀 节点选择,🌎 全球直连]}
+  - {name: 🐋 漏网之鱼, type: select, proxies: [🚀 节点选择,🌎 全球直连], <<: *u}
 rule-providers:
   ##################  代理，直连，广告  ###################
   proxy: # 代理域名列表

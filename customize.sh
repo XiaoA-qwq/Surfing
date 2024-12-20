@@ -85,7 +85,7 @@ else
   ui_print "- 安装完成 工作目录"
   ui_print "- data/adb/box_bll/"
   ui_print "- ————————————————"
-  ui_print "- 安装无需重启设备..."
+  ui_print "- 安装需重启设备..."
 fi
 
 if [ "$KSU" = true ]; then

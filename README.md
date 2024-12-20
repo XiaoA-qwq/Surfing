@@ -5,7 +5,7 @@
   <br>CLASHMETA<br>
 </h1>
 
-<h3 align="center">Magisk, Kernelsu, APatch</h3>
+<h3 align="center">Magisk、Kernelsu、APatch</h3>
 
 <div align="center">
     <a href="https://github.com/MoGuangYu/Surfing/releases/tag/Prerelease-Alpha">
@@ -18,170 +18,171 @@
 
 #
 
-**English** | [简体中文](./README_CN.md)
+  **此仓库为 MoGuangYu/Surfing 的fork版本，针对配置文件以及clash规则进行修改**
 
-This project is a [Magisk](https://github.com/topjohnwu/Magisk), [Kernelsu](https://github.com/tiann/KernelSU), [APatch](https://github.com/bmax121/APatch) module for Clash, sing-box, v2ray, xray, hysteria. It supports REDIRECT (TCP only), TPROXY (TCP + UDP) transparent proxy, TUN (TCP + UDP), and hybrid mode REDIRECT (TCP) + TUN (UDP) proxy.
+  本项目为 Clash、sing-box、v2ray、xray、hysteria 的 [Magisk](https://github.com/topjohnwu/Magisk) 、 [Kernelsu](https://github.com/tiann/KernelSU) 、 [APatch](https://github.com/bmax121/APatch) 模块。支持 REDIRECT（仅 TCP）、TPROXY（TCP + UDP）透明代理，支持 TUN（TCP + UDP）亦可 REDIRECT（TCP）+ TUN（UDP） 混合模式代理。
+  
+  基于上游为集成式一体服务、即刷即用   
+  此适用以下人群：
+  - 懒癌
+  - 小白
 
-Based on upstream integration for one-stop service, ready to use. Suitable for:
-- Lazy people
-- Beginners
+  项目主题及配置仅围绕 [Clash.Meta](https://github.com/MetaCubeX/Clash.Meta)  
+  
+  本模块需在 Magisk/Kernelsu 环境进行使用，如果你不知道如何配置所需环境，你可能需要像 ClashForAndroid、v2rayNG、surfboard、SagerNet、AnXray 等应用程序。
 
-The project's theme and configuration focus on [Clash.Meta](https://github.com/MetaCubeX/Clash.Meta).
+# Surfing用户声明及免责
 
-This module needs to be used in a Magisk/Kernelsu environment. If you don't know how to configure the required environment, you might need applications like ClashForAndroid, v2rayNG, surfboard, SagerNet, AnXray.
+欢迎使用 在使用本项目前，请您仔细阅读并理解以下声明及免责条款。通过使用本项目，即表示您同意接受以下条款和条件。以下简称 **Surfing**
 
-# Surfing User Declaration and Disclaimer
+## 免责声明
 
-Welcome to use Surfing. Before using this project, please carefully read and understand the following statements and disclaimers. By using this project, you agree to accept the following terms and conditions. Hereinafter referred to as **Surfing**.
+1. **本项目是一个开源项目，仅供学习和研究之用，不提供任何形式的担保。使用者必须对使用本项目的风险和后果负全部责任。**
 
-## Disclaimer
+2. **本项目仅为简化 Surfing 对 Clash 服务在 Android Magisk 环境中的安装和配置提供便利，并不对 Surfing 的功能和性能做出任何保证。如有任何问题或损失，本项目开发者概不负责。**
 
-1. **This project is an open-source project for learning and research purposes only and does not provide any form of guarantee. Users must bear full responsibility for the risks and consequences of using this project.**
+3. **本项目 Surfing 模块的使用可能会违反您所在地区的法律法规或服务提供商的使用条款。您需要自行承担使用本项目所带来的风险。本项目开发者不对您的行为或使用后果负责。**
 
-2. **This project is only for the convenience of simplifying the installation and configuration of Surfing for Clash services in the Android Magisk environment. It does not make any guarantees about the functionality and performance of Surfing. The developer of this project is not responsible for any problems or losses.**
+4. **本项目开发者不对使用本项目产生的任何直接或间接损失或损害负责，包括但不限于数据丢失、设备损坏、服务中断、个人隐私泄露等。**
 
-3. **The use of this projects Surfing module may violate the laws and regulations of your region or the terms of service of service providers. You need to bear the risks of using this project on your own. The developer of this project is not responsible for your actions or the consequences of use.**
+## 使用须知
 
-4. **The developer of this project is not responsible for any direct or indirect losses or damages resulting from the use of this project, including but not limited to data loss, device damage, service interruption, personal privacy leaks, etc.**
+1. **在使用本项目 Surfing 模块前，请确保您已经仔细阅读并理解 Clash 和 Magisk 的使用说明和相关文档，并遵守其规定和条款。**
 
-## Instructions for Use
+2. **在使用本项目之前，请先备份您的设备数据和相关设置，以防发生意外情况。本项目开发者不对您的数据丢失或损坏负责。**
 
-1. **Before using the Surfing module, please make sure you have carefully read and understood the usage instructions and related documents of Clash and Magisk and comply with their rules and terms.**
+3. **请在使用本项目时遵守当地的法律法规，并尊重其他用户的合法权益。禁止使用本项目进行任何违法、滥用或侵权的行为。**
 
-2. **Before using this project, back up your device data and related settings to prevent unexpected situations. The developer of this project is not responsible for your data loss or damage.**
+4. **如果您在使用本项目时遇到任何问题或有任何建议，欢迎您向本项目开发者反馈，但开发者对于解决问题和回应反馈没有义务和责任。**
 
-3. **Please comply with local laws and regulations and respect the legitimate rights and interests of other users when using this project. It is forbidden to use this project for illegal, abusive, or infringing activities.**
+请您在明确理解并接受上述声明及免责条款后，再决定是否使用 Surfing 模块。如果您不同意或无法接受上述条款，请立即停止使用本项目。
 
-4. **If you encounter any problems or have any suggestions when using this project, you are welcome to provide feedback to the developer of this project, but the developer is not obligated to resolve issues or respond to feedback.**
+## 法律适用
 
-Please decide whether to use the Surfing module only after clearly understanding and accepting the above statements and disclaimers. If you do not agree or cannot accept the above terms, please stop using this project immediately.
+**在使用本项目的过程中，您须遵守您所在地区的法律法规。如有任何争议，应依照当地法律法规进行解释和处理。**
 
-## Applicable Law
+## 安装
 
-**During the use of this project, you must comply with the laws and regulations of your region. In case of any disputes, interpretation and resolution should be carried out in accordance with local laws and regulations.**
+- 从 [Release](https://github.com/MoGuangYu/Surfing/releases) 页下载模块压缩包，然后通过 Magisk Manager 或 KernelSU Manager 或 APatch 安装
+- 各版本变化 [📲日志.log](changelog.md)
 
-## Installation
+## 卸载
 
-- Download the module zip file from the [Release](https://github.com/MoGuangYu/Surfing/releases) page and install it via Magisk Manager, KernelSU Manager, or APatch.
-- Version changes: [📲log](changelog.md)
-
-## Uninstallation
-
-- Uninstall the module from the Magisk Manager, Kernelsu Manager, or APatch application. [👉🏻Removal Command](https://github.com/MoGuangYu/Surfing/blob/main/uninstall.sh#L3-L4)
+ - 从 Magisk Manager 、Kernelsu Manager 、APatch 应用卸载本模块即可 [👉🏻铲屎命令](https://github.com/MoGuangYu/Surfing/blob/main/uninstall.sh#L3-L4)
 
 ## Wiki
 
 <details>
-<summary>1. First Use</summary>
+<summary>1. 首次使用</summary>
 
-- After installing the module, you don't need to restart the device. You can use the `Toolbox` integration to refresh the update status of the client
-- Add the subscription address in `config.yaml` and reload the configuration.
-- Due to network reasons, all rules may not be downloaded automatically. Please manually update/download the rule files.
-  - If the above fails, ensure your network environment is normal.
-- Web App: [Download](https://github.com/MoGuangYu/Surfing/raw/main/folder/Web_v5.5_release.apk) | [View Source Code](./folder/main.lua)
-  - This is a graphical auxiliary tool for convenient browsing and managing backend routing data, with no additional purposes.
+- 安装模块后无需重启设备，可使用`Toolbox`整合并刷新客户端的更新状态
+- 于`config.yaml`添加订阅地址，重载一下配置
+- 可能因网络原因不会自动下载完全部规则，请手动 更新/下载 规则文件
+  - 如上述失败，并确保你的网络环境正常
+- Web App：[Download](https://github.com/MoGuangYu/Surfing/raw/main/folder/Web_v5.5_release.apk) | [查看源码](./folder/main.lua)
+  - 仅为图形辅助工具，用于便携浏览及管理后台路由数据，并无其它多余用途
 
-> The module has a built-in GUI that can be accessed locally via a browser or used online with the app, with no essential difference between the two.
+> 模块已内置 Gui 可通过浏览器本地访问使用，亦或者使用 App 在线访问使用，两者本质上并无差异
 
 </details>
 
 #
 
 <details>
-<summary>2. Control Operation</summary>
+<summary>2. 控制运行</summary>
 
-- The service can be controlled in real-time through the module switch to turn it on/off.
-- You can add a control switch for the module to the system status bar.  
+- 可通过模块开关进行 关闭/开启 控制运行服务实时生效
+- 可向系统状态栏添加模块的控制开关  
   
 <img src="./folder/KAKJFS.jpg" alt="KJFS" width="300">
 
-[Download Apk](https://www.coolapk.com/apk/com.coolapk.market) | [Copy URL](https://raw.githubusercontent.com/MoGuangYu/Surfing/main/folder/KJFSURL.md)
+[下载Apk](https://www.coolapk.com/apk/com.coolapk.market) | [复制URL](https://raw.githubusercontent.com/MoGuangYu/Surfing/main/folder/KJFSURL.md)
 
 <img src="./folder/BJZDY.jpg" alt="KJFS" width="300">
 
-- Enter Settings
+- 进入设置
 
 <img src="./folder/WLDR.jpg" alt="KJFS" width="300">
 
-- Import URL
+- 导入URL
 
 <img src="./folder/CTSZ.jpg" alt="KJFS" width="300">
 
-- Add a custom tile to the status bar
+- 向状态栏自定义磁贴
 
 </details>
 
 #
 
 <details>
-<summary>3. Geo Database</summary>
+<summary>3. Geo 数据库</summary>
 
-GitHub Actions automatically build daily at 6 AM Beijing time, ensuring the latest rules. [Wiki](https://github.com/MetaCubeX/meta-rules-dat)
+GitHub Actions 北京时间每天早上 6 点自动构建，保证规则最新  [Wiki](https://github.com/MetaCubeX/meta-rules-dat)  
 
-> Used for routing rule matching to achieve accurate diversion. Updates will always point to the latest version, so you only need to update the file once a month.
+> 用于路由规则匹配，实现精准分流，更新会一直指向最新版本，因此每个月只需更新一次文件即可
 
 </details>
 
 #
 
 <details>
-<summary>4. Subsequent Updates</summary>
+<summary>4. 后续更新</summary>
 
-- If you use all default configurations, the updates will be seamless
-- Supports online module updates within the client, no reboot required after updates; however, module switch control for enabling/disabling will ~~temporarily fail~~, still requiring a reboot. It is recommended to use Toolbox for updates
-- During the update, the Clash.Meta config.yaml file will be backed up to
+- 如果你全部使用默认配置，更新将是无感
+- 支持在客户端中在线更新模块，更新后无须重启，模块开关控制 启用/关闭 ~~会临时失效，仍需重启~~ 建议使用 Toolbox 更新
+- 更新时 Clash.Meta config.yaml 配置文件会备份至
    - `/data/adb/box_bll/clash/config.yaml.bak`
-- During the update, old user configuration files will be backed up to
+- 更新时会备份旧文件用户配置，至
    - `/data/adb/box_bll/scripts/box.config.bak`
-- The following are not included in module updates:
-   - Geo database files
-   - Bin files
-   - Web resources
+- 更新模块时不包含：
+   - Geo数据库文件
+   - bin文件
+   - Web资源
 
-> Ps: Mainly follows upstream updates and distributes some configurations
+> Ps：主要跟随上游更新，及下发一些配置
 
 </details>
 
 #
 
 <details>
-<summary>5. Usage Issues</summary>
+<summary>5. 使用问题</summary>
 
-1. Proxy Specific Applications (Black/Whitelist)
-- To proxy all applications except certain ones, open the `/data/adb/box_bll/scripts/box.config` file, set the `proxy_mode` value to `blacklist` (default), and add elements to the `user_packages_list` array. The format for elements is `id:package_name`, separated by spaces. For example, `user_packages_list=("id:package_name" "id:package_name")` to **not proxy** specific Android user applications.
+一、代理特定应用程序(黑白名单)
+- 代理所有应用程序，除了某些特定的应用外，那么请打开 `/data/adb/box_bll/scripts/box.config` 文件，修改 `proxy_mode` 的值为 `blacklist`（默认值），在 `user_packages_list` 数组中添加元素，数组元素格式为`id标识:应用包名`，元素之间用空格隔开。即可**不代理**相应安卓用户应用。例如 `user_packages_list=("id标识:应用包名" "id标识:应用包名")`
 
-- To only proxy specific applications, open the `/data/adb/box_bll/scripts/box.config` file, set the `proxy_mode` value to `whitelist`, and add elements to the `user_packages_list` array. The format for elements is `id:package_name`, separated by spaces. For example, `user_packages_list=("id:package_name" "id:package_name")` to **only proxy** specific Android user applications.
+- 只代理特定的应用程序，那么请打开 `/data/adb/box_bll/scripts/box.config` 文件，修改 `proxy_mode` 的值为 `whitelist`，在 `user_packages_list` 数组中添加元素，数组元素格式为`id标识:应用包名`，元素之间用空格隔开。即可**仅代理**相应安卓用户应用。例如 `user_packages_list=("id标识:应用包名" "id标识:应用包名")`
 
-Android user group ID identifiers:
+安卓用户组id标识：
 
-| Standard User | ID  |
-| ------------- | --- |
-| Owner         |  0  |
-| Second Space  |  10 |
-| App Clone     | 999 |
+| 标准用户 | ID  |
+| -------- | --- |
+| 机主     |  0  |
+| 手机分身 |  10  |
+| 应用多开 | 999 |
 
-> Typically, you can find all user group IDs and application package names in `/data/user/`. Do not use fake-ip mode when using black/whitelist.
+> 通常你可以在`/data/user/`找到本机所有用户组id及应用包名，使用黑白名单请勿使用fake-ip模式
 
-2. Tun Mode
-- Enabled by default
+二、Tun模式
+- 默认开启
 
-> Recommended to enable under WiFi. If not necessary, it can be disabled. Do not use black/whitelist before enabling this mode.
+> WiFi下推荐开启，如非特殊需要可不开启，使用该模式前请勿使用黑白名单
 
-3. Routing Rules
-- Bypass mainland China
-- The rules are maintained by the developer and can satisfy most usage needs.
+三、路由规则
+- 为大陆饶行
+- 规则由本人亲自维护的，基本能满足大多数使用需求
 
-> Black/whitelist is not significant unless strictly required. The module's built-in configuration is sufficient.
+> 如非特别严格的要求，黑白名单意义不大，使用模块自带配置即可
 
-4. Panel Management
-- Magisk Font Module
+四、面板管理
+- Magisk字体模块
 
-> May affect normal display of page fonts.
+> 会影响页面字体正常显示
 
-5. LAN Sharing
-- Enable hotspot to allow other devices to connect.
+五、局域网共享
+- 开启热点让其它设备连接即可
 
-> For other devices to access the console backend, just use (http://currentWiFigateway:9090/ui).
+> 其它设备若访问控制台后端，只需 (http://当前WiFi网关:9090/ui)
 
 </details>
 
@@ -191,7 +192,8 @@ Android user group ID identifiers:
     <img alt="License" src="https://img.shields.io/github/license/MoGuangYu/Surfing.svg">
 </a>
 
-## Acknowledgments
+
+## 致谢
 
 <a href="https://github.com/CHIZI-0618">
   <p align="center">
@@ -209,5 +211,5 @@ Android user group ID identifiers:
   <a href="https://github.com/Loyalsoldier"><strong>Loyalsoldier</strong></a>
 </div>
 <div align="center">
-  <p> > Thanks for providing valuable foundation for the implementation of this project. < </p>
+  <p> > 感谢为本项目的实现提供了宝贵的基础 < </p>
 </div>

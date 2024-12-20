@@ -18,14 +18,14 @@ echo "以下将获取 GitHub main 最新提交！"
 echo ""
 
 UPDATESCRIPT_FILE="/data/adb/box_bll/clash/UpdateScript.sh"
-GITHUB_REPO="MoGuangYu/Surfing"
+GITHUB_REPO="XiaoA-qwq/Surfing"
 SCRIPTS_PATH="box_bll/scripts"
 CLASH_PATH="box_bll/clash"
 LOCAL_SCRIPTS_DIR="/data/adb/box_bll/scripts"
 LOCAL_CLASH_DIR="/data/adb/box_bll/clash"
 CONFIG_FILE="$LOCAL_CLASH_DIR/config.yaml"
 BACKUP_FILE="$LOCAL_CLASH_DIR/subscribe_urls_backup.txt"
-UPDATESCRIPT_URL="https://raw.githubusercontent.com/MoGuangYu/Surfing/main/box_bll/clash/UpdateScript.sh"
+UPDATESCRIPT_URL="https://raw.githubusercontent.com/XiaoA-qwq/Surfing/main/box_bll/clash/UpdateScript.sh"
 
 get_remote_version() {
     remote_content=$(curl -s --connect-timeout 3 "$UPDATESCRIPT_URL")

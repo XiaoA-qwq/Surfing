@@ -1,31 +1,51 @@
+# 配置组一             端口类
 mixed-port: 7890
 redir-port: 7891
 tproxy-port: 1536
-mode: Rule
+
+# 配置组二             代理类
 allow-lan: true
 geodata-mode: true
 geo-auto-update: true
 geo-update-interval: 24
+# https://github.com/Loyalsoldier/v2ray-rules-dat 的复刻 https://github.com/DustinWin/ruleset_geodata 
 geox-url:
-  geoip: "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geoip.dat"
-  geosite: "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geosite.dat"
+  geoip: "https://mirror.ghproxy.com/https://github.com/DustinWin/ruleset_geodata/releases/download/clash/geoip-all.metadb"
+  geosite: "https://mirror.ghproxy.com/https://github.com/DustinWin/ruleset_geodata/releases/download/clash/geosite-all.dat"
 unified-delay: true
 tcp-concurrent: true
 enable-process: true
-log-level: silent
-find-process-mode: always
-global-client-fingerprint: chrome
 external-controller: 0.0.0.0:9090
 #面板默认Meta 可选Yacd 清除浏览器缓存即可重新加载
-external-ui: /data/adb/box_bll/panel/Meta/ #/Meta #/Yacd
+external-ui: /data/adb/box_bll/panel/Yacd/ #/Meta #/Yacd
 secret: ""
+
+
+# 配置组三           选择类
+mode: Rule
+# silent 静默，不输出
+# error 仅输出发生错误至无法使用的日志
+# warning 输出发生错误但不影响运行的日志，以及 error 级别内容
+# info 输出一般运行的内容，以及 error 和 warning 级别的日志
+# debug 尽可能的输出运行中所有的信息
+log-level: silent
+# 可选："chrome", "firefox", "safari", "iOS", "android", "edge", "360"," qq", "random"
+# 若选择 "random", 则按 Cloudflare Radar 数据按概率生成一个现代浏览器指纹。
+global-client-fingerprint: random # 随机指纹 （全局客户端指纹）
+# 控制是否让 Clash 去匹配进程
+# always 开启，强制匹配所有进程
+# strict 默认，由 Clash 判断是否开启
+# off 不匹配进程，推荐在路由器上使用此模式
+find-process-mode: always
 
 #####################
 #修改配置文件保存时，建议重启模块服务/重载配置.
 #####################
 
 profile:
+    # 储存 API 对策略组的选择，以供下次启动时使用
   store-selected: true
+  # 储存 fakeip 映射表，域名再次发生连接时，使用原有映射地址
   store-fake-ip: true
 
 sniffer:
@@ -41,9 +61,12 @@ sniffer:
     QUIC:
       ports: [443, 8443]
   force-domain:
-    - "+.v2ex.com"
+    - google.com
+    - +.v2ex.com
+  # # 白名单,跳过嗅探结果
   skip-domain:
-    - "Mijia Cloud"
+    - Mijia Cloud
+    - +.apple.com
 
 tun:
   enable: false #true 开 #false 关
@@ -75,17 +98,37 @@ dns:
   enhanced-mode: fake-ip
   fake-ip-range: 198.18.0.0/15
   fake-ip-filter:
-    - "*"
-    - "+.lan"
+    - '*'
+    - '+.lan'
+    - '+.local'
+    - '+.leigod.com'
+    - '+.vivox.com'
+    - '+.stun.+'
+    - '.n.n.srv.nintendo.net'
+    - '+.stun.playstation.net'
+    - 'xbox.*.*.microsoft.com'
+    - '*.*.xboxlive.com'
+    - 'lens.l.google.com'
+    - '*.mcdn.bilivideo.cn'
     - "connect.rom.miui.com"
-    - "localhost.ptlogin2.qq.com"
+    - 'localhost.ptlogin2.qq.com'
+    - WORKGROUP
   default-nameserver:
+    - tls://1.12.12.12:853
+    - tls://223.5.5.5:853
+    - https://223.5.5.5/dns-query 
     - 119.29.29.29
-    - 223.6.6.6
+    - 223.6.6.6 
+    - system 
   nameserver:
-    - QUIC://dns.alidns.com/dns-query
+    - quic://dns.adguard.com:784
+    - https://1.1.1.1/dns-query
+    - https://1.0.0.1/dns-query
     - https://sm2.doh.pub/dns-query
+    - QUIC://dns.alidns.com/dns-query
+    - https://mozilla.cloudflare-dns.com/dns-query
     - https://[2400:3200::1]/dns-query#skip-cert-verify=true
+    - dhcp://en0
 
   p: &p
     {type: http, interval: 86400, health-check: {enable: true, url: https://www.gstatic.com/generate_204, interval: 300}}
@@ -109,62 +152,63 @@ proxies:
   - {name: 🌎 全球直连, type: direct, udp: true}
   - {name: DNS_Hijack, type: dns}
 proxy-groups:
-  - {name: 🎯 总模式, type: select, proxies: [🚀 节点选择,♻️ 延迟最低,♻️ 故障转移,♻️ 负载均衡,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3,🌎 全球直连]}
   - {name: 🚀 节点选择, type: select, proxies: [♻️ 延迟最低,🌎 全球直连], <<: *u}
   - {name: ♻️ 延迟最低, <<: *u, type: url-test}
-  - {name: ♻️ 故障转移, <<: *u, type: fallback}
   - {name: ♻️ 负载均衡, <<: *u, type: load-balance, strategy: round-robin}
-  - {name: ♻️ 手动切换1, type: select, proxies: [🚀 节点选择,🌎 全球直连], <<: *u}
-  - {name: ♻️ 手动切换2, type: select, proxies: [🚀 节点选择,🌎 全球直连], <<: *u}
-  - {name: ♻️ 手动切换3, type: select, proxies: [🚀 节点选择,🌎 全球直连], <<: *u}
-  - {name: 🤖 OpenAI, type: select, proxies: [🎯 总模式,♻️ 延迟最低,♻️ 故障转移,♻️ 负载均衡,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3,🌎 全球直连]}
-  - {name: 📱 脸书社交, type: select, proxies: [🎯 总模式,♻️ 延迟最低,♻️ 故障转移,♻️ 负载均衡,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3,🌎 全球直连]}
-  - {name: 📲 电报信息, type: select, proxies: [🎯 总模式,♻️ 延迟最低,♻️ 故障转移,♻️ 负载均衡,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3,🌎 全球直连]}
-  - {name: 🎬 油管媒体, type: select, proxies: [🎯 总模式,♻️ 延迟最低,♻️ 故障转移,♻️ 负载均衡,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3,🌎 全球直连]}
-  - {name: 📹 奈飞媒体, type: select, proxies: [🎯 总模式,♻️ 延迟最低,♻️ 故障转移,♻️ 负载均衡,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3,🌎 全球直连]}
-  - {name: 📢 谷歌服务, type: select, proxies: [🎯 总模式,♻️ 延迟最低,♻️ 故障转移,♻️ 负载均衡,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3,🌎 全球直连]}
-  - {name: Ⓜ️ 微软服务, type: select, proxies: [🎯 总模式,♻️ 延迟最低,♻️ 故障转移,♻️ 负载均衡,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3,🌎 全球直连]}
-  - {name: 🍎 苹果服务, type: select, proxies: [🎯 总模式,♻️ 延迟最低,♻️ 故障转移,♻️ 负载均衡,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3,🌎 全球直连]}
-  - {name: 🎮 Discord, type: select, proxies: [🎯 总模式,♻️ 延迟最低,♻️ 故障转移,♻️ 负载均衡,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3,🌎 全球直连]}
-  - {name: 📸 TikTok, type: select, proxies: [🎯 总模式,♻️ 延迟最低,♻️ 故障转移,♻️ 负载均衡,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3,🌎 全球直连]}
-  - {name: 🎹 网易音乐「进程匹配」, type: select, proxies: [🌎 全球直连,🎯 总模式,♻️ 延迟最低,♻️ 故障转移,♻️ 负载均衡,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3]}
+
+  ######################  建议代理  ######################
+  - {name: 📢 GFW, type: select, proxies: [🚀 节点选择,♻️ 延迟最低,♻️ 负载均衡,🌎 全球直连]}
+
+
+  - {name: Ⓜ️ 微软服务, type: select, proxies: [🚀 节点选择,♻️ 延迟最低,♻️ 负载均衡,🌎 全球直连]}
+  - {name: 🍎 苹果服务, type: select, proxies: [🚀 节点选择,♻️ 延迟最低,♻️ 负载均衡,🌎 全球直连]}
+  - {name: 🎹 网易音乐「进程匹配」, type: select, proxies: [🌎 全球直连,🚀 节点选择,♻️ 延迟最低,♻️ 负载均衡]}
   - {name: 🛑 广告拦截, type: select, proxies: [REJECT,🌎 全球直连]}
-  - {name: 🐋 漏网之鱼, type: select, proxies: [🎯 总模式,🌎 全球直连]}
+  - {name: 🐋 漏网之鱼, type: select, proxies: [🚀 节点选择,🌎 全球直连]}
 rule-providers:
-  TikTok:
+  ##################  代理，直连，广告  ###################
+  proxy: # 代理域名列表
     type: http
     behavior: classical
-    format: yaml
-    path: ./rule/TikTok.yaml
-    url: "https://raw.githubusercontent.com/MoGuangYu/rules/main/Home/TikTok.yaml"
+    path: ./rule/proxy.yaml
+    url: "https://fastly.jsdelivr.net/gh/DustinWin/ruleset_geodata@clash-ruleset/proxy.yaml"
     interval: 86400
-  Facebook:
+  direct: # 直连域名列表
     type: http
-    behavior: classical
-    format: yaml
-    path: ./rule/Facebook.yaml
-    url: "https://raw.githubusercontent.com/MoGuangYu/rules/main/Home/Facebook.yaml"
+    behavior: domain
+    url: "https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/direct.txt"
+    path: ./ruleset/direct.yaml
     interval: 86400
-  Telegram:
+  cncidr: # 中国大陆 IP 地址列表
     type: http
-    behavior: classical
-    format: yaml
-    path: ./rule/Telegram.yaml
-    url: "https://raw.githubusercontent.com/MoGuangYu/rules/main/Home/Telegram.yaml"
+    behavior: ipcidr
+    url: "https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/cncidr.txt"
+    path: ./ruleset/cncidr.yaml
     interval: 86400
-  YouTube:
+  private: # 私有网络专用域名列表
     type: http
-    behavior: classical
-    format: yaml
-    path: ./rule/YouTube.yaml
-    url: "https://raw.githubusercontent.com/MoGuangYu/rules/main/Home/YouTube.yaml"
+    behavior: domain
+    url: "https://fastly.jsdelivr.net/gh/DustinWin/ruleset_geodata@clash-ruleset/private.yaml"
+    path: ./ruleset/private.yaml
     interval: 86400
-  Google:
+  lancidr: # 局域网 IP 及保留 IP 地址列表 
     type: http
-    behavior: classical
-    format: yaml
-    path: ./rule/Google.yaml
-    url: "https://raw.githubusercontent.com/MoGuangYu/rules/main/Home/Google.yaml"
+    behavior: ipcidr
+    url: "https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/lancidr.txt"
+    path: ./ruleset/lancidr.yaml
+    interval: 86400
+  ads: # 广告域名列表
+    type: http
+    behavior: domain
+    url: "https://fastly.jsdelivr.net/gh/DustinWin/ruleset_geodata@clash-ruleset/ads.yaml"
+    path: ./ruleset/ads.yaml
+    interval: 86400
+  ######################  特定域名  ######################
+  gfw: # GFWList 域名列表
+    type: http
+    behavior: domain
+    url: "https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/gfw.txt"
+    path: ./ruleset/gfw.yaml
     interval: 86400
   Microsoft:
     type: http
@@ -178,46 +222,41 @@ rule-providers:
     behavior: classical
     format: yaml
     path: ./rule/Apple.yaml
-    url: "https://raw.githubusercontent.com/MoGuangYu/rules/main/Home/Apple.yaml"
+    url: "https://fastly.jsdelivr.net/gh/DustinWin/ruleset_geodata@clash-ruleset/apple-cn.yaml"
     interval: 86400
-  OpenAI:
-    type: http
-    behavior: classical
-    format: yaml
-    path: ./rule/OpenAI.yaml
-    url: "https://raw.githubusercontent.com/MoGuangYu/rules/main/Home/OpenAI.yaml"
-    interval: 86400
-  Netflix:
-    type: http
-    behavior: classical
-    format: yaml
-    path: ./rule/Netflix.yaml
-    url: "https://raw.githubusercontent.com/MoGuangYu/rules/main/Home/Netflix.yaml"
-    interval: 86400
-  Discord:
-    type: http
-    behavior: classical
-    format: yaml
-    path: ./rule/Discord.yaml
-    url: "https://raw.githubusercontent.com/MoGuangYu/rules/main/Home/Discord.yaml"
-    interval: 86400
+
 rules:
+  # 基本规则
+  - RULE-SET,lancidr,DIRECT # 局域网 IP 及保留 IP 地址列表
+  - RULE-SET,private,DIRECT # 私有网络专用域名列表
+  - GEOSITE,private,DIRECT   # 主流 Clash dashboard 在线面板域名
+  ## fix dnsleak
+  - IP-CIDR,127.0.0.1/32,REJECT,no-resolve
+  - IP-CIDR,198.18.0.1/16,REJECT,no-resolve
+  - IP-CIDR,28.0.0.1/8,REJECT,no-resolve
+  - IP-CIDR6,::1/128,REJECT,no-resolve  
+  ## direct FCM
+  - AND,((NETWORK,TCP),(DST-PORT,5228-5230)),DIRECT
+  - AND,((NETWORK,TCP),(DST-PORT,5228-5230),(OR,((DOMAIN-KEYWORD,google)))),DIRECT
+  ## direct ntp
+  - AND,((NETWORK,UDP),(DST-PORT,123)),DIRECT
+  - DST-PORT,123/136/137-139,DIRECT,udp
+  #########################  自写规则  #########################
   - DST-PORT,53,DNS_Hijack
   - AND,((PROCESS-NAME,mihomo),(NOT,((IN-TYPE,inner)))),REJECT
   - AND,((PROCESS-NAME,clash),(NOT,((IN-TYPE,inner)))),REJECT
   - PROCESS-NAME,com.netease.cloudmusic,🎹 网易音乐「进程匹配」
-  - RULE-SET,Discord,🎮 Discord
-  - RULE-SET,TikTok,📸 TikTok
-  - RULE-SET,YouTube,🎬 油管媒体
-  - RULE-SET,Netflix,📹 奈飞媒体
-  - RULE-SET,Facebook,📱 脸书社交
-  - RULE-SET,OpenAI,🤖 OpenAI
-  - RULE-SET,Google,📢 谷歌服务
+
+  - RULE-SET,gfw,📢 GFW
   - RULE-SET,Apple,🍎 苹果服务
   - RULE-SET,Microsoft,Ⓜ️ 微软服务
-  - RULE-SET,Telegram,📲 电报信息
+
+  - DOMAIN-SUFFIX,o33249.ingest.sentry.io,REJECT  # OPENAI 跟踪域名 reject
+  - DOMAIN-SUFFIX,openaicom.imgix.net,REJECT  # OPENAI 跟踪域名 reject
+
   - GEOSITE,category-ads-all,🛑 广告拦截
   - GEOSITE,CN,🌎 全球直连
   - GEOIP,CN,🌎 全球直连,no-resolve
   - GEOIP,private,🌎 全球直连,no-resolve
+  - RULE-SET,proxy,🚀 节点选择
   - MATCH,🐋 漏网之鱼

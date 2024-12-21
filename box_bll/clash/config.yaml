@@ -169,7 +169,7 @@ rule-providers:
   ##################  代理，直连，广告  ###################
   proxy: # 代理域名列表
     type: http
-    behavior: classical
+    behavior: domain
     path: ./rule/proxy.yaml
     url: "https://fastly.jsdelivr.net/gh/DustinWin/ruleset_geodata@clash-ruleset/proxy.yaml"
     interval: 86400
@@ -177,45 +177,44 @@ rule-providers:
     type: http
     behavior: domain
     url: "https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/direct.txt"
-    path: ./ruleset/direct.yaml
+    path: ./rule/direct.yaml
     interval: 86400
   cncidr: # 中国大陆 IP 地址列表
     type: http
     behavior: ipcidr
     url: "https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/cncidr.txt"
-    path: ./ruleset/cncidr.yaml
+    path: ./rule/cncidr.yaml
     interval: 86400
   private: # 私有网络专用域名列表
     type: http
     behavior: domain
     url: "https://fastly.jsdelivr.net/gh/DustinWin/ruleset_geodata@clash-ruleset/private.yaml"
-    path: ./ruleset/private.yaml
+    path: ./rule/private.yaml
     interval: 86400
   lancidr: # 局域网 IP 及保留 IP 地址列表 
     type: http
     behavior: ipcidr
     url: "https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/lancidr.txt"
-    path: ./ruleset/lancidr.yaml
+    path: ./rule/lancidr.yaml
     interval: 86400
   ads: # 广告域名列表
     type: http
     behavior: domain
     url: "https://fastly.jsdelivr.net/gh/DustinWin/ruleset_geodata@clash-ruleset/ads.yaml"
-    path: ./ruleset/ads.yaml
+    path: ./rule/ads.yaml
     interval: 86400
   ######################  特定域名  ######################
   gfw: # GFWList 域名列表
     type: http
     behavior: domain
     url: "https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/gfw.txt"
-    path: ./ruleset/gfw.yaml
+    path: ./rule/gfw.yaml
     interval: 86400
   telegramip:
     type: http
     behavior: ipcidr
-    format: mrs
-    path: ./rule/telegramip.mrs
-    url: "https://github.com/DustinWin/ruleset_geodata/releases/download/clash-ruleset/telegramip.mrs"
+    path: ./rule/telegramip.yaml
+    url: "https://fastly.jsdelivr.net/gh/DustinWin/ruleset_geodata@clash-ruleset/telegramip.yaml"
     interval: 86400
   Microsoft:
     type: http
@@ -226,8 +225,7 @@ rule-providers:
     interval: 86400
   Apple:
     type: http
-    behavior: classical
-    format: yaml
+    behavior: domain
     path: ./rule/Apple.yaml
     url: "https://fastly.jsdelivr.net/gh/DustinWin/ruleset_geodata@clash-ruleset/apple-cn.yaml"
     interval: 86400

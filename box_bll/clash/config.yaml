@@ -152,18 +152,19 @@ proxies:
   - {name: 🌎 全球直连, type: direct, udp: true}
   - {name: DNS_Hijack, type: dns}
 proxy-groups:
-  - {name: 🚀 节点选择, type: select, proxies: [♻️ 延迟最低,🌎 全球直连], <<: *u}
-  - {name: ♻️ 延迟最低, <<: *u, type: url-test}
+  - {name: 🚀 节点选择, type: select, proxies: [♻️ 主要延迟最低,♻️ 备用延迟最低,🌎 全球直连], <<: *u}
+  - {name: ♻️ 主要延迟最低, use: [1.主要地址], type: url-test}
+  - {name: ♻️ 备用延迟最低, use: [2.备用地址], type: url-test}
 
   ######################  建议代理  ######################
-  - {name: 📢 GFW, type: select, proxies: [🚀 节点选择,♻️ 延迟最低,🌎 全球直连], <<: *u}
+  - {name: 📢 GFW, type: select, proxies: [🚀 节点选择,🌎 全球直连,♻️ 主要延迟最低,♻️ 备用延迟最低], <<: *u}
+  - {name: 📲 电报信息, type: select, proxies: [🚀 节点选择,🌎 全球直连,♻️ 主要延迟最低,♻️ 备用延迟最低], <<: *u}
 
-
-  - {name: Ⓜ️ 微软服务, type: select, proxies: [🚀 节点选择,♻️ 延迟最低,🌎 全球直连], <<: *u}
-  - {name: 🍎 苹果服务, type: select, proxies: [🚀 节点选择,♻️ 延迟最低,🌎 全球直连], <<: *u}
-  - {name: 🎹 网易音乐「进程匹配」, type: select, proxies: [🌎 全球直连,🚀 节点选择,♻️ 延迟最低]}
+  - {name: Ⓜ️ 微软服务, type: select, proxies: [🚀 节点选择,🌎 全球直连,♻️ 主要延迟最低,♻️ 备用延迟最低], <<: *u}
+  - {name: 🍎 苹果服务, type: select, proxies: [🚀 节点选择,🌎 全球直连,♻️ 主要延迟最低,♻️ 备用延迟最低], <<: *u}
+  - {name: 🎹 网易音乐「进程匹配」, type: select, proxies: [🌎 全球直连,🚀 节点选择,♻️ 主要延迟最低,♻️ 备用延迟最低]}
   - {name: 🛑 广告拦截, type: select, proxies: [REJECT,🌎 全球直连]}
-  - {name: 🐋 漏网之鱼, type: select, proxies: [🚀 节点选择,🌎 全球直连], <<: *u}
+  - {name: 🐋 漏网之鱼, type: select, proxies: [🚀 节点选择,🌎 全球直连,♻️ 主要延迟最低,♻️ 备用延迟最低], <<: *u}
 rule-providers:
   ##################  代理，直连，广告  ###################
   proxy: # 代理域名列表
@@ -209,6 +210,13 @@ rule-providers:
     url: "https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/gfw.txt"
     path: ./ruleset/gfw.yaml
     interval: 86400
+  telegramip:
+    type: http
+    behavior: ipcidr
+    format: mrs
+    path: ./rule/telegramip.mrs
+    url: "https://github.com/DustinWin/ruleset_geodata/releases/download/clash-ruleset/telegramip.mrs"
+    interval: 86400
   Microsoft:
     type: http
     behavior: classical
@@ -246,14 +254,18 @@ rules:
   - AND,((PROCESS-NAME,clash),(NOT,((IN-TYPE,inner)))),REJECT
   - PROCESS-NAME,com.netease.cloudmusic,🎹 网易音乐「进程匹配」
 
-  - RULE-SET,gfw,📢 GFW
+  - RULE-SET,telegramip,📲 电报信息,no-resolve
   - RULE-SET,Apple,🍎 苹果服务
   - RULE-SET,Microsoft,Ⓜ️ 微软服务
+  - RULE-SET,gfw,📢 GFW
 
   - DOMAIN-SUFFIX,o33249.ingest.sentry.io,REJECT  # OPENAI 跟踪域名 reject
   - DOMAIN-SUFFIX,openaicom.imgix.net,REJECT  # OPENAI 跟踪域名 reject
 
+  - RULE-SET,ads,🛑 广告拦截
   - GEOSITE,category-ads-all,🛑 广告拦截
+  - RULE-SET,direct,🌎 全球直连
+  - RULE-SET,cncidr,🌎 全球直连
   - GEOSITE,CN,🌎 全球直连
   - GEOIP,CN,🌎 全球直连,no-resolve
   - GEOIP,private,🌎 全球直连,no-resolve

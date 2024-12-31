@@ -21,7 +21,7 @@ RELEASE_PATH="mihomo-android-arm64-v8"
 BASE_URL="https://api.github.com/repos/MetaCubeX/mihomo/releases/latest"
 PANEL_DIR="/data/adb/box_bll/panel/"
 META_DIR="${PANEL_DIR}Meta/"
-CHANGELOG_URL="https://raw.githubusercontent.com/MoGuangYu/Surfing/main/changelog.md"
+CHANGELOG_URL="https://raw.githubusercontent.com/XiaoA-qwq/Surfing/main/changelog.md"
 META_URL="https://github.com/metacubex/metacubexd/archive/gh-pages.zip"
 METAA_URL="https://api.github.com/repos/metacubex/metacubexd/releases/latest"
 YACD_DIR="${PANEL_DIR}Yacd/"
@@ -40,12 +40,12 @@ GEODATA_URL="https://api.github.com/repos/Loyalsoldier/v2ray-rules-dat/releases/
 GEOIP_PATH="/data/adb/box_bll/clash/GeoIP.dat"
 GEOSITE_PATH="/data/adb/box_bll/clash/GeoSite.dat"
 RULES_PATH="/data/adb/box_bll/clash/rule/"
-GIT_URL="https://api.github.com/repos/MoGuangYu/Surfing/releases/latest"
+GIT_URL="https://api.github.com/repos/XiaoA-qwq/Surfing/releases/latest"
 RULES_URL_PREFIX="https://raw.githubusercontent.com/MoGuangYu/rules/main/Home/"
 RULES=("YouTube.yaml" "TikTok.yaml" "Telegram.yaml" "OpenAI.yaml" "Netflix.yaml" "Microsoft.yaml" "Google.yaml" "Facebook.yaml" "Discord.yaml" "Apple.yaml")
 
 CURRENT_VERSION="v10.9"
-TOOLBOX_URL="https://raw.githubusercontent.com/MoGuangYu/Surfing/main/box_bll/clash/Toolbox.sh"
+TOOLBOX_URL="https://raw.githubusercontent.com/XiaoA-qwq/Surfing/main/box_bll/clash/Toolbox.sh"
 TOOLBOX_FILE="/data/adb/box_bll/clash/Toolbox.sh"
 get_remote_version() {
     remote_content=$(curl -s --connect-timeout 3 "$TOOLBOX_URL")
@@ -879,13 +879,13 @@ open_project_page() {
     echo "↴" 
     echo "正在打开项目地址..."
     if command -v xdg-open > /dev/null; then
-        xdg-open "https://github.com/MoGuangYu/Surfing"
+        xdg-open "https://github.com/XiaoA-qwq/Surfing"
     elif command -v am > /dev/null; then
-        am start -a android.intent.action.VIEW -d "https://github.com/MoGuangYu/Surfing"
+        am start -a android.intent.action.VIEW -d "https://github.com/XiaoA-qwq/Surfing"
     echo "ok" 
     else
         echo "无法打开浏览器，请手动访问以下地址："
-        echo "https://github.com/MoGuangYu/Surfing"
+        echo "https://github.com/XiaoA-qwq/Surfing"
     fi
 }
 show_menu

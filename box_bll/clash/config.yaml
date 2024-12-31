@@ -14,10 +14,10 @@ tcp-concurrent: true
 enable-process: true
 log-level: silent
 find-process-mode: always
-global-client-fingerprint: chrome
+global-client-fingerprint: random
 external-controller: 0.0.0.0:9090
 #面板默认Meta 可选Yacd 清除浏览器缓存即可重新加载
-external-ui: /data/adb/box_bll/panel/Meta/ #/Meta #/Yacd
+external-ui: /data/adb/box_bll/panel/Yacd/ #/Meta #/Yacd
 secret: ""
 
 #####################
@@ -75,13 +75,25 @@ dns:
   enhanced-mode: fake-ip
   fake-ip-range: 198.18.0.0/15
   fake-ip-filter:
-    - "*"
-    - "+.lan"
+    - '*'
+    - '+.lan'
+    - '+.local'
+    - '+.leigod.com'
+    - '+.vivox.com'
+    - '+.stun.+'
+    - '.n.n.srv.nintendo.net'
+    - '+.stun.playstation.net'
+    - 'xbox.*.*.microsoft.com'
+    - '*.*.xboxlive.com'
+    - 'lens.l.google.com'
+    - '*.mcdn.bilivideo.cn'
     - "connect.rom.miui.com"
-    - "localhost.ptlogin2.qq.com"
+    - 'localhost.ptlogin2.qq.com'
+    - WORKGROUP
   default-nameserver:
     - 119.29.29.29
     - 223.6.6.6
+    - system 
   nameserver:
     - https://doh.pub/dns-query
     - https://dns.alidns.com/dns-query
@@ -94,62 +106,27 @@ proxies:
   - {name: 🌎 全球直连, type: direct, udp: true}
   - {name: DNS_Hijack, type: dns}
 proxy-providers:
-  HongKong:
-    <<: *p
-    filter: "^(?=.*(港|HK|hk|Hong Kong|HongKong|hongkong))(?!.*(灾|网易|Netease)).*"
-    path: ./proxy_providers/HongKong.yaml
-  Japan:
-    <<: *p
-    filter: "^(?=.*(日本|川日|东京|大阪|泉日|埼玉|沪日|深日|[^-]日|JP|Japan))(?!.*(灾|网易|Netease)).*"
-    path: ./proxy_providers/Japan.yaml
-  America:
-    <<: *p
-    filter: "^(?=.*(美|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|拉斯维加斯|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|US|United States))(?!.*(灾|网易|Netease)).*"
-    path: ./proxy_providers/America.yaml
-  Taiwan:
-    <<: *p
-    filter: "^(?=.*(台|新北|彰化|TW|Taiwan))(?!.*(灾|网易|Netease)).*"
-    path: ./proxy_providers/Taiwan.yaml
-  Singapore:
-    <<: *p
-    filter: "^(?=.*(新加坡|坡|狮城|SG|Singapore))(?!.*(灾|网易|Netease)).*"
-    path: ./proxy_providers/Singapore.yaml
-  Resilience:
-    <<: *p
-    filter: "^(?=.*(灾))(?!.*(网易|Netease)).*"
-    path: ./proxy_providers/Resilience.yaml
   All: 
     <<: *p
-    filter: "^(?!.*(网易|订阅|群|账户|流量|有效期|时间|官网)).*$"
+    #filter: "^(?!.*(网易|订阅|群|账户|流量|有效期|时间|官网)).*$"   # 过滤关键字
     path: ./proxy_providers/All.yaml
-  Neteasemusic: 
-    <<: *p
-    filter: "(Netease)"
-    path: ./proxy_providers/Neteasemusic.yaml
 
 proxy-groups:
-  - {name: 🎯 总模式, type: select, proxies: [🚀 节点选择, ♻️ 延迟最低, 🇭🇰 香港节点, 🇨🇳 台湾节点, 🇸🇬 狮城节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🌎 全球直连]}
   - {name: 🚀 节点选择, type: select, proxies: [♻️ 延迟最低,🌎 全球直连], use: [All]}
   - {name: ♻️ 延迟最低, type: url-test, url: http://www.gstatic.com/generate_204, interval: 300, tolerance: 500, use: [All]}
-  - {name: ♻️ 手动切换1, type: select, proxies: [🚀 节点选择,🌎 全球直连], use: [All]}
-  - {name: 📲 电报信息, type: select, proxies: [🎯 总模式, ♻️ 延迟最低, 🚀 节点选择, ♻️ 手动切换1, 🇸🇬 狮城节点, 🇭🇰 香港节点, 🇨🇳 台湾节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🌎 全球直连]}
-  - {name: 🤖 OpenAI, type: select, proxies: [🎯 总模式, ♻️ 延迟最低, 🚀 节点选择, ♻️ 手动切换1, 🇸🇬 狮城节点, 🇭🇰 香港节点, 🇨🇳 台湾节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🌎 全球直连]}
-  - {name: 🎬 油管媒体, type: select, proxies: [🎯 总模式, ♻️ 延迟最低, 🚀 节点选择, ♻️ 手动切换1, 🇸🇬 狮城节点, 🇭🇰 香港节点, 🇨🇳 台湾节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🌎 全球直连]}
-  - {name: 📸 TikTok, type: select, proxies: [🎯 总模式, ♻️ 延迟最低, 🚀 节点选择, ♻️ 手动切换1, 🇸🇬 狮城节点, 🇭🇰 香港节点, 🇨🇳 台湾节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🌎 全球直连]}
-  - {name: 📱 脸书社交, type: select, proxies: [🎯 总模式, ♻️ 延迟最低, 🚀 节点选择, ♻️ 手动切换1, 🇸🇬 狮城节点, 🇭🇰 香港节点, 🇨🇳 台湾节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🌎 全球直连]}
-  - {name: 📹 奈飞媒体, type: select, proxies: [🎯 总模式, ♻️ 延迟最低, 🚀 节点选择, ♻️ 手动切换1, 🇸🇬 狮城节点, 🇭🇰 香港节点, 🇨🇳 台湾节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🌎 全球直连]}
-  - {name: 📢 谷歌服务, type: select, proxies: [🎯 总模式, ♻️ 延迟最低, 🚀 节点选择, ♻️ 手动切换1, 🇸🇬 狮城节点, 🇭🇰 香港节点, 🇨🇳 台湾节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🌎 全球直连]}
-  - {name: 🎮 Discord, type: select, proxies: [🎯 总模式, ♻️ 延迟最低, 🚀 节点选择, ♻️ 手动切换1, 🇸🇬 狮城节点, 🇭🇰 香港节点, 🇨🇳 台湾节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🌎 全球直连]}
-  - {name: Ⓜ️ 微软服务, type: select, proxies: [🌎 全球直连, 🎯 总模式, ♻️ 延迟最低, 🚀 节点选择, ♻️ 手动切换1, 🇸🇬 狮城节点, 🇭🇰 香港节点, 🇨🇳 台湾节点, 🇯🇵 日本节点, 🇺🇲 美国节点]}   
-  - {name: 🍎 苹果服务, type: select, proxies: [🌎 全球直连, 🎯 总模式, ♻️ 延迟最低, 🚀 节点选择, ♻️ 手动切换1, 🇸🇬 狮城节点, 🇭🇰 香港节点, 🇨🇳 台湾节点, 🇯🇵 日本节点, 🇺🇲 美国节点]}
-  - {name: 🎹 网易音乐, type: select, proxies: [🌎 全球直连], use: [Neteasemusic]}
+  - {name: 📲 电报信息, type: select, proxies: [🚀 节点选择, ♻️ 延迟最低, 🌎 全球直连]}
+  - {name: 🤖 OpenAI, type: select, proxies: [🚀 节点选择, ♻️ 延迟最低, 🌎 全球直连]}
+  - {name: 🎬 油管媒体, type: select, proxies: [🚀 节点选择, ♻️ 延迟最低, 🌎 全球直连]}
+  - {name: 📸 TikTok, type: select, proxies: [🚀 节点选择, ♻️ 延迟最低, 🌎 全球直连]}
+  - {name: 📱 脸书社交, type: select, proxies: [🚀 节点选择, ♻️ 延迟最低, 🌎 全球直连]}
+  - {name: 📹 奈飞媒体, type: select, proxies: [🚀 节点选择, ♻️ 延迟最低, 🌎 全球直连]}
+  - {name: 📢 谷歌服务, type: select, proxies: [🚀 节点选择, ♻️ 延迟最低, 🌎 全球直连]}
+  - {name: 🎮 Discord, type: select, proxies: [🚀 节点选择, ♻️ 延迟最低, 🌎 全球直连]}
+  - {name: Ⓜ️ 微软服务, type: select, proxies: [🌎 全球直连, 🚀 节点选择, ♻️ 延迟最低]}   
+  - {name: 🍎 苹果服务, type: select, proxies: [🌎 全球直连, 🚀 节点选择, ♻️ 延迟最低]}
+  - {name: 🎹 网易音乐, type: select, proxies: [🌎 全球直连]}
   - {name: 🛑 广告拦截, type: select, proxies: [REJECT, 🌎 全球直连]}
-  - {name: 🐋 漏网之鱼, type: select, proxies: [🎯 总模式, ♻️ 延迟最低, 🚀 节点选择, ♻️ 手动切换1, 🇸🇬 狮城节点, 🇭🇰 香港节点, 🇨🇳 台湾节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🌎 全球直连]}
-  - {name: 🇭🇰 香港节点, type: url-test, url: http://www.gstatic.com/generate_204, interval: 300, tolerance: 500, use: [HongKong]}
-  - {name: 🇯🇵 日本节点, type: url-test, url: http://www.gstatic.com/generate_204, interval: 300, tolerance: 500, use: [Japan]}
-  - {name: 🇺🇲 美国节点, type: url-test, url: http://www.gstatic.com/generate_204, interval: 300, tolerance: 700, use: [America]}
-  - {name: 🇨🇳 台湾节点, type: url-test, url: http://www.gstatic.com/generate_204, interval: 300, tolerance: 500, use: [Taiwan]}
-  - {name: 🇸🇬 狮城节点, type: url-test, url: http://www.gstatic.com/generate_204, interval: 300, tolerance: 500, use: [Singapore]}
+  - {name: 🐋 漏网之鱼, type: select, proxies: [🚀 节点选择, ♻️ 延迟最低, 🌎 全球直连]}
 
 RuleDefault: &RuleDefault
   {type: http, behavior: classical, format: text, interval: 86400}
@@ -229,6 +206,22 @@ rules:
   - DST-PORT,53,DNS_Hijack
   - AND,((PROCESS-NAME,mihomo),(NOT,((IN-TYPE,inner)))),REJECT
   - AND,((PROCESS-NAME,clash),(NOT,((IN-TYPE,inner)))),REJECT
+  - GEOSITE,private,DIRECT   # 主流 Clash dashboard 在线面板域名
+  ## fix dnsleak
+  - IP-CIDR,127.0.0.1/32,REJECT,no-resolve
+  - IP-CIDR,198.18.0.1/16,REJECT,no-resolve
+  - IP-CIDR,28.0.0.1/8,REJECT,no-resolve
+  - IP-CIDR6,::1/128,REJECT,no-resolve  
+  ## direct FCM
+  - AND,((NETWORK,TCP),(DST-PORT,5228-5230)),DIRECT
+  - AND,((NETWORK,TCP),(DST-PORT,5228-5230),(OR,((DOMAIN-KEYWORD,google)))),DIRECT
+  ## direct ntp
+  - AND,((NETWORK,UDP),(DST-PORT,123)),DIRECT
+  - DST-PORT,123/136/137-139,DIRECT,udp
+  ## OPENAI 跟踪域名 reject
+  - DOMAIN-SUFFIX,o33249.ingest.sentry.io,REJECT  # OPENAI 跟踪域名 reject
+  - DOMAIN-SUFFIX,openaicom.imgix.net,REJECT  # OPENAI 跟踪域名 reject
+
   - PROCESS-NAME,com.netease.cloudmusic,🎹 网易音乐
   - RULE-SET,Discord,🎮 Discord
   - RULE-SET,TikTok,📸 TikTok
